@@ -25,10 +25,6 @@ def setup(diacrit_str='__X__'):
     return conversion_table
 
 
-def transliterate(x):
-    return
-
-
 def main():
     # marking diacritics (for vowels)
     diacrit = '__X__'
@@ -53,14 +49,14 @@ def main():
             new_text.append(new_line)
 
         file_base = os.path.basename(fn).split('.')[0]
-        output_file = 'output/' + file_base + '.translit.txt'
+        output_file = 'output/' + file_base + '.translit.csv'
 
         # save files
         with open(output_file, 'w') as f:
             writer = csv.writer(f)
-            writer.writerow(['sinhala', 'latin'])
-            for (id, text) in zip(sent_id, new_text):
-                writer.writerow([id, text])
+            writer.writerow(['id', 'sinhala', 'translit'])
+            for (i, j, g) in zip(sent_id, sin_text, new_text):
+                writer.writerow([i, j, g])
 
     return
 
