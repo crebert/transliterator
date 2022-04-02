@@ -30,7 +30,7 @@ def main():
     diacrit = '__X__'
     # create conversion_table for transliteration
     conversion_table = setup(diacrit_str=diacrit)
-
+    print(conversion_table)
     corpus = '../../git_projects/partree/corpus'
     # get all files in corpus
     files = file_finder(corpus)
@@ -69,14 +69,13 @@ def transliterate(text, conversion_table, diacrit_str):
     # refine transliteration (vowels!)
     new_chars = []
     for i, x in enumerate(translit):
-        # remove final '-a' if followed by vowel (vowels are marked with '_')
-        if i < len(translit) - 1 and translit[i+1].startswith('_'):
+        # remove final '-a' if followed by vowel (vowels are marked with diacrit_str)
+        if i < len(translit) - 1 and translit[i+1].startswith(diacrit_str):
             if x[-1] == 'a':
                 x = x[:-1]
 
-        # remove diacrit_str from vowels (but do not remove single underscores)
-        if len(x) > len(diacrit_str):
-            x = x.replace(diacrit_str, '')
+        # remove diacrit_str from vowels
+        x = x.replace(diacrit_str, '')
         new_chars.extend(x)
     return ''.join(new_chars)
 
