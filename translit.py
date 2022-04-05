@@ -2,6 +2,77 @@ import csv
 import os
 
 
+sin_table = {
+    'ෞ': '__X__au',
+    'ූ': '__X__ū',
+    'ෲ': '__X__ṝ',
+    'ී': '__X__ī',
+    'ෘ': '__X__ṛ',
+    'ේ': '__X__ē',
+    'ෙ': '__X__e',
+    'ො': '__X__o',
+    'ෝ': '__X__ō',
+    'ා': '__X__ā',
+    'ු': '__X__u',
+    'ෟ': '__X__ḷ',
+    'ෑ': '__X__ǣ',
+    'ි': '__X__i',
+    'ෛ': '__X__ai',
+    'ැ': '__X__æ',
+    '්': '__X__',
+    'ං': 'ṁ',
+    'ඬ': 'n̆ḍa',
+    'ඉ': 'i',
+    'ඟ': 'n̆ga',
+    'හ': 'ha',
+    'ස': 'sa',
+    'ඕ': 'ō',
+    'උ': 'u',
+    'ඈ': 'ǣ',
+    'ඹ': 'm̆ba',
+    'ර': 'ra',
+    'ඡ': 'cha',
+    'ත': 'ta',
+    'ළ': 'ḷa',
+    'ද': 'da',
+    'ක': 'ka',
+    'ෆ': 'fa',
+    'ණ': 'ṇa',
+    'ඔ': 'o',
+    'ඌ': 'ū',
+    'ට': 'ṭa',
+    'ජ': 'ja',
+    'ඨ': 'ṭha',
+    'ම': 'ma',
+    'ආ': 'ā',
+    'ඛ': 'kha',
+    'ල': 'la',
+    'එ': 'e',
+    'ග': 'ga',
+    'ඊ': 'ī',
+    'ඳ': 'n̆da',
+    'ධ': 'dha',
+    'ඥ': 'gna',
+    'ඇ': 'æ',
+    'ඵ': 'pha',
+    'අ': 'a',
+    'භ': 'bha',
+    'ඝ': 'gha',
+    'ඖ': 'au',
+    'ය': 'ya',
+    'ව': 'va',
+    'ප': 'pa',
+    'ෂ': 'ṣa',
+    'ශ': 'śa',
+    'ඩ': 'ḍa',
+    'බ': 'ba',
+    'ච': 'ca',
+    'ථ': 'tha',
+    'න': 'na',
+    'ඒ': 'ē'
+}
+
+
 def file_finder(path):
     all_files = []
     movies = [i for i in os.listdir(path) if not i.startswith('.')]
@@ -30,7 +101,9 @@ def main():
     diacrit = '__X__'
     # create conversion_table for transliteration
     conversion_table = setup(diacrit_str=diacrit)
-    print(conversion_table)
+    # for x in conversion_table:
+    #     # print dictionary
+    #     line = "'{}': '{}',".format(x, conversion_table[x])
     corpus = '../../git_projects/partree/corpus'
     # get all files in corpus
     files = file_finder(corpus)
