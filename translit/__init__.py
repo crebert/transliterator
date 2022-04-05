@@ -2,8 +2,18 @@ import importlib
 
 
 def load_conversion_table(language):
-    i = importlib.import_module(f"lang.{language}")
-    return i.conversion_table
+    """
+    load conversion table from language module
+    :param language: 3-digit language iso-code
+    :return: dict conversion table
+    """
+    try:
+        i = importlib.import_module(f"lang.{language}")
+        ct = i.conversion_table
+    except ImportError:
+        print('No module found for language {}'.format(language))
+        ct = {}
+    return ct
 
 
 class Transliterator:
@@ -15,6 +25,7 @@ class Transliterator:
         return f"Transliteration tool for language: {self.language}"
 
     def convert(self, x: str):
+
         """
         convert string to Latin alphabet
         :param x: string
