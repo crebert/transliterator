@@ -16,6 +16,24 @@ def load_conversion_table(language):
     return ct
 
 
+def precedes_diacritic(char_i, string):
+    """
+    Does this character precede a diacritic that requires to delete a final vowel?
+    :param char_i: index of the character in string
+    :param string: larger string
+    :return: boolean
+    """
+
+    # assume the next character is not a diacritic
+    is_diacritic = False
+
+    # test if there is a next character in string that is a diacritic
+    if len(string) - 1 > char_i:
+        next_char = string[char_i + 1]
+        is_diacritic = next_char['char_type'] == 'diacritic'
+    return is_diacritic
+
+
 class Transliterator:
     def __init__(self, language: str):
         self.language = language
@@ -25,7 +43,6 @@ class Transliterator:
         return f"Transliteration tool for language: {self.language}"
 
     def convert(self, x: str):
-
         """
         convert string to Latin alphabet
         :param x: string
@@ -35,10 +52,14 @@ class Transliterator:
         # replace each character with dictionary from conversion table if possible
         new_chars = [self.conversion_table.get(i) if i in self.conversion_table.keys() else {'char': i, 'char_type': ''} for i in x]
         # refine transliteration (vowels!)
-        for i, char in enumerate(new_chars):
-            # remove final '-a' if followed by vowel (vowels are written as diacritics)
-            if i < len(new_chars) - 1 and new_chars[i + 1].get('char_type') is 'diacritic':
-                if char.get('char')[-1] == 'a':
-                    char['char'] = char.get('char')[:-1]
-        return ''.join([i['char'] for i in new_chars])
 
+        # create a list to add converted characters
+        converted_chars = []
+        for i, j in enumerate(new_chars):
+            if precedes_diacritic(i, new_chars) and j['char'].endswith('a'):
+                # add converted character without final -a
+                converted_chars.append(j['char'][:-1])
+            else:
+                # keep character as is
+                converted_chars.append(j['char'])
+        return ''.join(converted_chars)
