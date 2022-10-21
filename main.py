@@ -6,10 +6,10 @@ import langcodes
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--input', help = 'input file')
-    parser.add_argument('--output', help = 'output file', default="output.txt")
-    parser.add_argument('--lang', help = '3-digit language isocode', default="ben")
-    parser.add_argument('--demo', help = 'print short demo', action='store_true', dest = 'demo')
+    parser.add_argument('--input', help='input file')
+    parser.add_argument('--output', help='output file', default="output.txt")
+    parser.add_argument('--lang', help='3-digit language isocode', default="ben")
+    parser.add_argument('--demo', help='print short demo', action='store_true', dest='demo')
     args = parser.parse_args()
 
     if args.demo:
@@ -62,4 +62,3 @@ def demo():
 
 if __name__ == '__main__':
     main()
-
